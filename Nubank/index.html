@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <title>Document</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+
+            font-family: "Roboto", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            box-sizing: border-box;
+        }
+
+        header {
+            padding: 24px;
+            background: white;
+        }
+
+        ul {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+            color: black;
+        }
+
+        ul a {
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+        }
+        
+        #logo {
+            color: rebeccapurple;
+        }
+
+        body {
+            background-image: url(./bg.png);
+            background-size: cover;
+        }
+
+        #div-texto {
+            width: 600px;
+            color: white;
+            margin-top: 250px;
+            margin-left: 48px;
+        }
+
+        #div-texto h1 {
+            font-size: 48px;
+        }
+
+        #div-texto h2 {
+            font-size: 24px;
+        }
+
+        form {
+            width: 330px;
+            height: 308px;
+            border-radius: 16px;
+            background: white;
+            padding: 24px;
+            font-size: 24px;
+            position: absolute;
+            right: 100px;
+            bottom: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 24px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            border: 0;
+            border-bottom: 1px solid;
+            outline: none;
+        }
+
+        form button {
+            width: 100%;
+            height: 48px;
+            border-radius: 60px;
+            border: none;
+            color: #ccc;
+            text-align: left;
+            padding-left: 24px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <ul>
+            <li><a id="logo">NU</a></li>
+            <li>
+                <a href="#">Página Inicial</a>
+            </li>
+            <li><a href="#">Página Inicial</a></li>
+            <li><a href="#">Para você</a></li>
+            <li><a href="#">Para seu negócio</a></li>
+        </ul>
+    </header>
+
+    <main>
+        <div id="div-texto">
+            <h1>100 milhões de clientes. Você no centro de tudo.</h1>
+            <h2>Em cada produto ou solução que lançamos, tudo é pensado para abrir N possibilidades na sua vida.</h2>
+        </div>
+
+        <form>
+            <h3>Peça sua conta e cartão de crédito do Nubank</h3>
+            <input type="number" placeholder="Digite seu CPF">
+            <button type="submit">Continuar</button>
+        </form>
+    </main>
+</body>
+</html>
