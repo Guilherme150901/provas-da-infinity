@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>portfólio de Guilherme</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f9f9f9;
+      }
+      container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0px;
+      }
+      header {
+        background-color: #007bff;
+        color: black;
+        display: flex;
+        padding: 40px;
+      }
+      header img {
+        width: 300px;
+        max-width: 200px;
+        border-radius: 50%;
+      }
+      header div h2 {
+        margin-left: 30px;
+      }
+      header ul {
+        display: flex;
+        gap: 150px;
+        list-style: none;
+        color: black;
+        padding-top: 50px;
+      }
+      header ul a {
+        text-decoration: none;
+        color: black;
+        font-weight: bold;
+        font-size: 40px;
+      }
+      .sobre-mim {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        display: flex;
+        margin-top: 20px;
+      }
+      .sobre-mim ul {
+        text-decoration: none;
+        color: black;
+        list-style: none;
+        display: list-item;
+        padding: 140px;
+      }
+      .sobre-mim li {
+        padding: 10px;
+      }
+      .sobre-mim ul a {
+        color: black;
+        text-decoration: none;
+      }
+      .sobre-mim figure img {
+        width: 300px;
+        padding: 40px;
+        border-radius: 50px;
+      }
+      .sobre-mim p {
+        width: 400px;
+        padding: 140px;
+      }
+      .courses {
+        background-color: #fff;
+        padding: 20px;
+        margin-top: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        display: flex;
+      }
+      .courses figure img {
+        width: 800px;
+      }
+      .courses ul li {
+        padding: 20px;
+      }
+      .courses ul {
+        padding-right: 200px;
+      }
+      .course-item {
+        margin-bottom: 10px;
+      }
+      .projects {
+        background-color: #fff;
+        padding: 20px;
+        margin-top: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .project-item {
+        margin-bottom: 20px;
+      }
+      .project-item h3 {
+        padding-bottom: 40px;
+      }
+      .project-item {
+        max-width: 100%;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+      }
+      .project-item a {
+        color: black;
+        text-decoration: none;
+        padding-top: 30px;
+      }
+      footer {
+        text-align: center;
+        padding: 20px 0;
+        background-color: #333;
+        color: #fff;
+      }
+      footer a {
+        color: #fff;
+        text-decoration: none;
+        margin: 0 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <container>
+      <header id="inicio">
+        <div class="perfil">
+          <figure>
+            <img src="imagem de Guilherme.jpg" alt="Foto de Guilherme" />
+          </figure>
+          <h2>Guilherme Andrade</h2>
+        </div>
+        <ul>
+          <li><a href="#inicio">Home</a></li>
+          <li><a href="#sobremim">Sobre</a></li>
+          <li><a href="#cursos">Cursos</a></li>
+          <li><a href="#projetos">Projetos</a></li>
+        </ul>
+      </header>
+      <div class="sobre-mim">
+        <div>
+          <h2 id="sobremim">Sobre mim:</h2>
+          <figure>
+            <img src="imagem de guilherme 2.jpg" alt="Foto de Guilherme" />
+          </figure>
+        </div>
+        <p>
+          Olá! Meu nome é Guilherme, faço o curso de Análise e Desenvolvimento
+          de Sistemas, comecei a me interessar pela área de TI em 2023 e desde
+          então sigo buscando me especializar na área, principalmente focado em
+          cursos relacionados a programação, contando com uma oportunidade de
+          estágio no mercado de trabalho. Possuo foco em desenvolvimento com
+          JavaScript, HTML, CSS. Acredito que o aprendizado contínuo é a chave
+          para o crescimento profissional e que cada linha de código é uma
+          oportunidade de aprender e inovar. Me considero ágil e consistente em
+          aprender uma nova linguagem e me adaptar à qualquer mudança, pronto
+          para superar qualquer desafio! Se eu pudesse me definir em 3 palavras,
+          certamente seriam: otimista, perseverante e esforçado!
+        </p>
+        <ul>
+          <li><strong>Data de Nascimento:</strong> 15.09.2001</li>
+          <li><strong>Cidade:</strong> Salvador-BA, Brasil</li>
+          <li><strong>Study:</strong> Anhanguera</li>
+          <li><strong>idade:</strong> 22 anos</li>
+          <li><strong>Hobbies:</strong> Futebol, Praia, Viajar e Videogame</li>
+          <li>
+            <strong>Email:</strong>
+            <a href="mailto:gui15092001@gmail.com">gui15092001@gmail.com</a>
+          </li>
+        </ul>
+      </div>
+      <div class="courses">
+        <div class="course-item">
+          <h2 id="cursos">Cursos:</h2>
+          <ul>
+            <li>
+              <strong>Intensivão de JavaScript (HTML, CSS);</strong>
+            </li>
+            <li>
+              <strong>JavaScript do básico ao avançado;</strong>
+            </li>
+            <li>
+              <strong>Desenvolvimento web;</strong>
+            </li>
+            <li>
+              <strong>Fundamentos de front-end;</strong>
+            </li>
+            <li>
+              <strong>HTML developer;</strong>
+            </li>
+            <li>
+              <strong>Infinity school - programação full stack.</strong>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <figure>
+            <img
+              src="https://www.audero.it/blog/wp-content/uploads/2014/09/front-end-stack.png"
+              alt="foto das 3 linguagens front-end"
+            />
+          </figure>
+        </div>
+      </div>
+      <div class="projects" id="projetos">
+        <h2>Projetos:</h2>
+        <div class="project-item">
+          <h3>Loja de perfumes:</h3>
+          <img src="meu projeto.png" alt="Projeto 1" />
+          <a href="https://github.com/Guilherme150901/guilherme-imports-main"
+            ><strong>mais detalhes clique aqui</strong></a
+          >
+        </div>
+      </div>
+      <footer>
+        <a
+          href="https://www.linkedin.com/in/guilherme-gon%C3%A7alves-de-andrade-80919b257?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+          >LinkedIn</a
+        >
+        <a href="https://github.com/Guilherme150901?tab=repositories">GitHub</a>
+        <h3>Portfólio Infinity © - Todos os direitos reservados</h3>
+        <h4>Desenvolvido por Guilherme Andrade</h4>
+      </footer>
+    </container>
+  </body>
+</html>
