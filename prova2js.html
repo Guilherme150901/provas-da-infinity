@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>segunda prova de JavaScript</title>
+  </head>
+  <body>
+    <h3>
+      [JS-A02] Escreva um programa em JavaScript que solicite ao usuário o nome,
+      altura em centímetros e peso de uma pessoa. O programa deve calcular o
+      índice de massa corporal (IMC) dessa pessoa, considerando a fórmula IMC =
+      peso / (altura * altura), onde a altura deve ser convertida de centímetros
+      para metros. Em seguida, o programa deve classificar o peso com base no
+      IMC calculado, de acordo com a tabela a seguir: <br />
+      1. Menor que 16: Baixo peso muito grave <br />
+      2. De 16 a 16.99: Baixo peso grave <br />
+      3. De 17 a 18.49: Baixo peso <br />
+      4. De 18.50 a 24.99: Peso normal <br />
+      5. De 25 a 29.99: Sobrepeso <br />
+      6. De 30 a 34.99: Obesidade grau I <br />
+      7. De 35 a 39.99: Obesidade grau II <br />
+      8. Maior ou igual a 40: Obesidade grau III <br />
+      O programa deve exibir o nome da pessoa, o índice de massa corporal
+      calculado e a classificação correspondente.
+    </h3>
+    <script>
+        const nome = prompt("Digite o seu nome: ");
+        const altura = Number(prompt("Digite a sua altura em cm: "));
+        const peso = Number(prompt("Digite o seu peso: "));
+        const metros = (altura / 100);
+        const imc = (peso / (metros * metros));
+        
+        if (imc < 16) {
+            alert(`olá ${nome} ! o seu imc é de ${imc.toFixed(2)} e está baixo peso muito grave !`);
+        }  
+        else if (imc >= 16 && imc < 17) {
+            alert(`olá ${nome} ! o seu imc é de ${imc.toFixed(2)} e está baixo peso grave !`);
+        } 
+        else if (imc >= 17 && imc < 18.50) {
+            alert(`olá ${nome} ! o seu imc é de ${imc.toFixed(2)} e está baixo peso !`);
+        } 
+        else if (imc >= 18.50 && imc < 25) {
+            alert(`olá ${nome} ! o seu imc é de ${imc.toFixed(2)} e está peso normal !`);
+        } 
+        else if (imc >= 25 && imc < 30) {
+            alert(`olá ${nome} ! o seu imc é de ${imc.toFixed(2)} e está sobrepeso !`);
+        } 
+        else if (imc >= 30 && imc < 35) {
+            alert(`olá ${nome} ! o seu imc é de ${imc.toFixed(2)} e está obesidade grau I !`);
+        } 
+        else if (imc >= 35 && imc < 40) {
+            alert(`olá ${nome} ! o seu imc é de ${imc.toFixed(2)} e está obesidade grau II !`);
+        } 
+        else alert(`olá ${nome} ! o seu imc é de ${imc.toFixed(2)} e está obesidade grau III !`);
+    </script>    
+  </body>
+</html>
