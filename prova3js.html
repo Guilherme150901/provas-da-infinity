@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>terceira prova de JavaScript</title>
+  </head>
+  <body>
+    <h3>
+      [JS-A03] Você foi contratado(a) para desenvolver um programa que irá
+      auxiliar um professor a calcular algumas estatísticas das notas de seus
+      alunos. O programa deve solicitar ao professor o número total de
+      estudantes na turma e, em seguida, pedir que ele insira as notas de cada
+      aluno individualmente. Após receber todas as notas, o programa deverá
+      calcular a média da turma e identificar a maior e a menor nota obtida.
+    </h3>
+    <br />
+    <h3>Instruções:</h3>
+    <ol>
+      <li>
+        <strong>
+          Solicite ao professor que digite o número total de estudantes na
+          turma.</strong
+        >
+      </li>
+      <li>
+        <strong>
+          Em seguida, peça que o professor insira a nota de cada aluno
+          individualmente, uma por vez.
+        </strong>
+      </li>
+      <li>
+        <strong>
+          Calcule a média da turma somando todas as notas e dividindo pelo
+          número total de estudantes.
+        </strong>
+      </li>
+      <li>
+        <strong> Identifique e registre a maior nota obtida na turma. </strong>
+      </li>
+      <li>
+        <strong>
+          Ao final, exiba a média da turma e a maior e a menor nota encontrada.
+        </strong>
+      </li>
+    </ol>
+    <br />
+    <h3>Dicas:</h3>
+    <ol>
+      <li>
+        <strong>
+          Utilize um loop while para coletar as notas de todos os
+          alunos.</strong
+        >
+      </li>
+      <li>
+        <strong>
+          Armazene as notas em uma variável e vá atualizando o valor da soma a
+          cada nova nota inserida.</strong
+        >
+      </li>
+      <li>
+        <strong>
+          Compare cada nota com a maior nota atualmente registrada para
+          encontrar a maior nota.
+        </strong>
+      </li>
+      <li>
+        <strong>
+          Para calcular a média, divida a soma das notas pelo número total de
+          estudantes.
+        </strong>
+      </li>
+      <li>
+        <strong> Exiba os resultados de forma clara e organizada.</strong>
+      </li>
+    </ol>
+    <br />
+    <h3>
+      Lembre-se de testar o programa com diferentes valores de notas e número de
+      estudantes para garantir que ele funcione corretamente em diversas
+      situações. Boa programação!
+    </h3>
+
+    <script>
+      const numero_total_alunos = Number(prompt("Digite o número total de estudantes na turma: "));
+      let soma_das_notas = 0;
+      let maior_nota = -Infinity;
+      let menor_nota = Infinity;
+
+      let nota_de_cada_aluno = 1;
+      while (nota_de_cada_aluno <= numero_total_alunos) {
+        const nota = Number(
+          prompt(`Digite a nota do aluno ${nota_de_cada_aluno}: `)
+        );
+
+        soma_das_notas += nota;
+
+        if (nota > maior_nota) {
+          maior_nota = nota;
+        }
+
+        if (nota < menor_nota) {
+          menor_nota = nota;
+        }
+
+        nota_de_cada_aluno++;
+      }
+
+      const media_da_turma = soma_das_notas / numero_total_alunos;
+
+      console.log(`A média da tuma é: ${media_da_turma.toFixed(2)}`);
+      console.log(`A maior nota foi: ${maior_nota}`);
+      console.log(`A menor nota foi: ${menor_nota}`);
+    </script>
+  </body>
+</html>
