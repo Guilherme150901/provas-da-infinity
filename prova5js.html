@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>prova 5 de JavaScript</title>
+  </head>
+  <body>
+    <h3>
+      [JS-A05] Você foi convidado(a) a desenvolver um aplicativo web para ajudar
+      a gerenciar as tarefas domésticas de uma família agitada. O objetivo é
+      criar um "Gerenciador de Tarefas Domésticas" que permita que todos os
+      membros da família adicionem, removam e atualizem suas tarefas diárias,
+      garantindo que tudo seja feito de forma organizada.
+    </h3>
+    <script>
+      let tarefas = [];
+
+      while (true) {
+        let opcao = Number(
+          prompt(
+            `1- Ver tarefas \n2- Adicionar tarefas \n3- Remover tarefas \n4- Sair`
+          )
+        );
+
+        if (opcao === 1) {
+          if (tarefas.length === 0) {
+            alert("Nenhuma tarefa adicionada.");
+          } else {
+            alert(tarefas.join("\n"));
+          }
+        } else if (opcao === 2) {
+          let adicionarTarefa = prompt(
+            "Digite a tarefa que você quer adicionar:"
+          );
+          if (adicionarTarefa) {
+            tarefas.push(adicionarTarefa);
+            alert(`Tarefa adicionada com sucesso: ${adicionarTarefa}`);
+          }
+        } else if (opcao === 3) {
+          let removerTarefa = prompt(
+            "Digite o nome da tarefa que você deseja remover:"
+          );
+          let posicao = tarefas.indexOf(removerTarefa);
+          if (posicao !== -1) {
+            tarefas.splice(posicao, 1);
+            alert(`Tarefa removida com sucesso: ${removerTarefa}`);
+          } else {
+            alert("Tarefa não encontrada.");
+          }
+        } else if (opcao === 4) {
+          alert(`até a próxima`);
+          break;
+        } else {
+          alert("Opção inválida. Tente novamente.");
+        }
+      }
+    </script>
+  </body>
+</html>
