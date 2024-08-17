@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>prova 6 de JavaScript</title>
+    <style>
+        body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f8ff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+      .container {
+        width: 300px;
+        padding: 20px;
+        background-color: #ffffff;
+        border: 2px solid #87cefa;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      .container label {
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+      .container input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      .container button {
+        width: 100%;
+        padding: 10px;
+        background-color: #87cefa;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+      }
+      .container button:hover {
+        background-color: #00bfff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <label for="peso">Digite o seu peso (kg):</label>
+      <input type="number" id="peso" placeholder="70.2" />
+      <label for="altura">Digite a sua altura (m):</label>
+      <input type="number" id="altura" placeholder="1.80" />
+      <button type="submit" onclick="calcularImc()">Enviar</button>
+    </div>
+    
+    <script>
+        function calcularImc() {
+            const peso = document.getElementById("peso").value;
+            const altura = document.getElementById("altura").value;
+            if (peso && altura) {
+                const imc = (peso / (altura * altura)).toFixed(2);
+                alert(`O seu IMC é ${imc}`);
+            } else {
+                alert(`Por favor preencha todos os campos. `);
+            }
+        }
+    </script>
+  </body>
+</html>
