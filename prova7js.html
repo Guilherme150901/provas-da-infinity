@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prova 7 de JavaScript</title>
+  </head>
+  <body>
+    <script>
+      const calcularGorjeta = (valorDaConta, qualidadeDoServico) => {
+        let porcentagemGorjeta;
+
+        switch (qualidadeDoServico) {
+          case "bom":
+            porcentagemGorjeta = 0.15;
+            break;
+          case "regular":
+            porcentagemGorjeta = 0.1;
+            break;
+          case "ruim":
+            porcentagemGorjeta = 0.05;
+            break;
+          default:
+            alert(
+              `Qualidade do serviço inválida. Use "bom", "regular" ou "ruim".`
+            );
+            return 0;
+        }
+        return valorDaConta * porcentagemGorjeta;
+      };
+
+      const exibirGorjeta = () => {
+        const valorDaConta = Number(prompt(`Digite o valor total da conta: `));
+        const qualidadeDoServico = prompt(
+          `Digite uma qualidade do serviço: use "bom", "regular" ou "ruim". `
+        ).toLowerCase();
+        if (!isNaN(valorDaConta) && valorDaConta > 0) {
+            const gorjeta = calcularGorjeta(valorDaConta, qualidadeDoServico);
+            if (gorjeta > 0) {
+                alert(`A gorjeta para um serviço ${qualidadeDoServico} em uma conta de R$ ${valorDaConta.toFixed(2)} é R$${gorjeta.toFixed(2)}.`);
+            }
+        } else {
+            alert(`Por favor, insira um valor válido para a conta.`);
+        }
+      };
+      exibirGorjeta();
+    </script>
+  </body>
+</html>
