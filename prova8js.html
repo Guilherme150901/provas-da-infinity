@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>prova 8 de JavaScript</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: aliceblue;
+        }
+        .container {
+            background-color: white;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+        }
+        input,
+        select,
+        button {
+          margin: 12px 0;
+          padding: 10px;
+          width: 95%;
+          border: 1px solid lightgrey;
+        }
+        button {
+            background-color: #87cefa;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #00bfff;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+        <h1>conversor de unidades de comprimento</h1>
+        <label for=""><strong>Digite a distância de sua viagem em metros: </strong></label>
+        <input type="number" name="num" id="numero" placeholder="Ex: 1000">
+        <label for=""><strong>Escolha o modo de conversão: </strong></label>
+        <select id="modoDeConversao" required>
+            <option value="escolha" selected disabled>Jardas, Pés, Polegadas ou Milhas</option>
+            <option value="jardas">Jardas</option>
+            <option value="pes">Pés</option>
+            <option value="polegadas">Polegadas</option>
+            <option value="milhas">Milhas</option>
+          </select>
+        <button onclick="converterValor()">Converter</button>
+
+        <h2 id="resultado"><span></span></h2>
+    </div>
+
+    <script>
+        function converterValor() {
+            const valorInput = Number(document.querySelector("#numero").value);
+            const unidadeSelecionada = document.querySelector("#modoDeConversao").value;
+
+            let resultado;
+
+            switch (unidadeSelecionada) {
+                case "jardas":
+                    resultado = valorInput * 1.094;
+                    break;
+                case "pes":
+                    resultado = valorInput * 3.281;
+                    break;
+                case "polegadas":
+                    resultado = valorInput * 39.37;
+                    break;
+                case "milhas":
+                    resultado = valorInput * 0.000621;
+                    break;
+                default:
+                    alert("selecione uma unidade de conversão válida.");
+                    return;    
+            }
+            document.querySelector("#resultado").innerHTML = `Resultado da conversão: ${resultado} ${unidadeSelecionada}`;
+        
+        }
+    </script>
+  </body>
+</html>
