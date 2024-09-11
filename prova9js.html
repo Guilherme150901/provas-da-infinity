@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>prova 9 JavaScript</title>
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: rgb(255, 255, 233);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        width: 600px;
+        max-width: 90%;
+      }
+
+      h1,
+      h2 {
+        font-size: 2rem;
+        color: #333;
+      }
+
+      input {
+        padding: 10px;
+        width: calc(100% - 22px);
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      button {
+        padding: 10px 20px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+
+      ul {
+        list-style-type: none;
+        padding: 0;
+        max-height: 200px;
+        overflow-y: auto;
+      }
+
+      li {
+        background-color: #f9f9f9;
+        margin: 5px 0;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        word-wrap: break-word;
+      }
+
+      li.completed {
+        text-decoration: line-through;
+        color: #888;
+      }
+
+      li button {
+        margin-left: 10px;
+        background-color: #ff4d4d;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 4px;
+        color: white;
+        cursor: pointer;
+      }
+
+      li button:hover {
+        background-color: #ff1a1a;
+      }
+
+      @media (max-width: 600px) {
+        .container {
+          width: 100%;
+          padding: 10px;
+        }
+
+        h1,
+        h2 {
+          font-size: 1.5rem;
+        }
+
+        button {
+          padding: 8px 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Aplicativo de Anotações</h1>
+      <input type="text" placeholder="Digite uma nota:" id="texto" />
+      <button onclick="addNota()">Adicionar nota</button>
+      <h2>Anotações:</h2>
+      <ul id="anotacoes"></ul>
+    </div>
+    <script>
+      function addNota() {
+        const textoInput = document.getElementById("texto");
+        const texto = textoInput.value.trim();
+        if (texto === "") return;
+
+        const lista = document.getElementById("anotacoes");
+        const li = document.createElement("li");
+        li.textContent = texto;
+
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Remover";
+        deleteButton.onclick = () => li.remove();
+
+        li.appendChild(deleteButton);
+        lista.appendChild(li);
+
+        textoInput.value = "";
+      }
+    </script>
+  </body>
+</html>
