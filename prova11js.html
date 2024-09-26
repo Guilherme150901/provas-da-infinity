@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz Interativo</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin-top: 50px;
+      }
+      .container {
+        width: 300px;
+        margin: auto;
+      }
+      .pergunta {
+        font-size: 20px;
+        margin-bottom: 20px;
+      }
+      .opcao button {
+        display: block;
+        width: 100%;
+        margin: 10px 0;
+        padding: 10px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+      .feedback {
+        font-size: 18px;
+        margin-top: 20px;
+        color: green;
+      }
+      .feedback.incorreto {
+        color: red;
+      }
+      .botao-recarregar {
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div id="pergunta" class="pergunta"></div>
+      <div id="opcao" class="opcao"></div>
+      <div id="feedback" class="feedback"></div>
+      <button id="recarregar" class="botao-recarregar" onclick="recarregarQuiz()">
+        Recarregar
+      </button>
+    </div>
+
+    <script>
+
+      const questionario = [
+        {
+          pergunta: "Quem foi o primeiro presidente do Brasil?",
+          opcao: [
+            "Getúlio Vargas",
+            "Deodoro da Fonseca",
+            "Dom Pedro II",
+            "Juscelino Kubitschek",
+          ],
+          correto: 1,
+        },
+        {
+          pergunta: "Em que ano o homem pisou na Lua pela primeira vez?",
+          opcao: ["1969", "1972", "1955", "1980"],
+          correto: 0,
+        },
+        {
+          pergunta: "Quem pintou a Mona Lisa?",
+          opcao: [
+            "Vincent van Gogh",
+            "Leonardo da Vinci",
+            "Pablo Picasso",
+            "Michelangelo",
+          ],
+          correto: 1,
+        },
+        {
+          pergunta: "Qual é o maior planeta do sistema solar?",
+          opcao: ["Terra", "Marte", "Júpiter", "Saturno"],
+          correto: 2,
+        },
+      ];
+
+      let perguntaAtual = {};
+
+      function carregarPergunta() {
+
+        document.getElementById("feedback").textContent = "";
+        document.getElementById("recarregar").style.display = "none";
+
+        const perguntaAleatoria = Math.floor(Math.random() * questionario.length);
+        perguntaAtual = questionario[perguntaAleatoria];
+
+        document.getElementById("pergunta").textContent = perguntaAtual.pergunta;
+
+        const opcaoContainer = document.getElementById("opcao");
+        opcaoContainer.innerHTML = ""; 
+        perguntaAtual.opcao.forEach((opcao, index) => {
+          const button = document.createElement("button");
+          button.textContent = opcao;
+          button.onclick = () => verificarResposta(index);
+          opcaoContainer.appendChild(button);
+        });
+      }
+
+      function verificarResposta(selectedOption) {
+        const feedback = document.getElementById("feedback");
+        if (selectedOption === perguntaAtual.correto) {
+          feedback.textContent = "Acertou!!!";
+          feedback.classList.remove("incorreto");
+        } else {
+          feedback.textContent = `Errado! A resposta correta é: ${perguntaAtual.opcao[perguntaAtual.correto]}`;
+          feedback.classList.add("incorreto");
+        }
+
+        document.getElementById("recarregar").style.display = "block";
+      }
+
+      function recarregarQuiz() {
+        carregarPergunta();
+      }
+
+      window.onload = carregarPergunta;
+    </script>
+  </body>
+</html>
+</html>
