@@ -94,16 +94,16 @@
         const novoLi = document.createElement("li");
         novoLi.textContent = novoTexto;
 
-        const butaoConcluir = document.createElement("button");
-        butaoConcluir.textContent = "Concluir";
-        butaoConcluir.onclick = () => completarTarefa(novoLi);
+        const botaoConcluir = document.createElement("button");
+        botaoConcluir.textContent = "Concluir";
+        botaoConcluir.onclick = () => completarTarefa(novoLi);
 
-        const deletarButao = document.createElement("button");
-        deletarButao.textContent = "Remover";
-        deletarButao.onclick = () => novoLi.remove();
+        const deletarBotao = document.createElement("button");
+        deletarBotao.textContent = "Remover";
+        deletarBotao.onclick = () => novoLi.remove();
 
-        novoLi.appendChild(butaoConcluir);
-        novoLi.appendChild(deletarButao);
+        novoLi.appendChild(botaoConcluir);
+        novoLi.appendChild(deletarBotao);
         ul.appendChild(novoLi);
 
         input.value = "";
