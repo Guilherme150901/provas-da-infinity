@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Catálogo de Livros Online</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        background-color: #f0f4f8;
+        color: #333;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        color: #4a90e2;
+      }
+
+      form,
+      .container {
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin: 20px 0;
+        width: 100%;
+        max-width: 500px;
+      }
+
+      h2 {
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+        color: #333;
+      }
+
+      input,
+      select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 1rem;
+      }
+
+      button {
+        background-color: #4a90e2;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+        width: 100%;
+      }
+
+      button:hover {
+        background-color: #357ab8;
+      }
+
+      #livros {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        margin-top: 20px;
+      }
+
+      #livros .livro {
+        background-color: #e7f3ff;
+        border-left: 5px solid #4a90e2;
+        padding: 15px;
+        border-radius: 5px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      #livros h3 {
+        font-size: 1.5rem;
+        color: #4a90e2;
+      }
+
+      #livros p {
+        font-size: 1rem;
+        color: #555;
+        margin-bottom: 5px;
+      }
+
+      #livros input {
+        width: 80px;
+        margin-top: 10px;
+      }
+
+      @media (max-width: 600px) {
+        form,
+        .container {
+          width: 100%;
+        }
+
+        button {
+          font-size: 0.9rem;
+        }
+
+        h1 {
+          font-size: 2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Catálogo de Livros Online</h1>
+
+    <form id="adicionarLivroForm">
+      <h2>Adicionar Novo Livro</h2>
+      <input type="text" id="titulo" placeholder="Título" required />
+      <input type="text" id="autor" placeholder="Autor" required />
+      <input type="text" id="genero" placeholder="Gênero" required />
+      <input type="number" id="ano" placeholder="Ano de Publicação" required />
+      <input
+        type="number"
+        id="avaliacao"
+        placeholder="Avaliação"
+        min="1"
+        max="5"
+        required
+      />
+      <button type="submit">Adicionar Livro</button>
+    </form>
+
+    <div class="container">
+      <h2>Buscar Livro</h2>
+      <input
+        type="text"
+        id="busca"
+        placeholder="Buscar por título, autor ou gênero"
+      />
+      <button onclick="buscarLivro()">Buscar</button>
+    </div>
+
+    <div class="container">
+      <h2>Classificar Livros</h2>
+      <select id="criterioClassificacao" onchange="classificarLivros()">
+        <option value="titulo">Título</option>
+        <option value="autor">Autor</option>
+        <option value="avaliacao">Avaliação</option>
+      </select>
+    </div>
+
+    <div id="livros" class="container"></div>
+
+    <script>
+      let livros = [
+        {
+          titulo: "Dom Casmurro",
+          autor: "Machado de Assis",
+          genero: "Romance",
+          ano: 1899,
+          avaliacao: 5,
+        },
+      ];
+
+      function carregarDoArquivo() {
+        renderizarLivros();
+      }
+
+      function salvarNoArquivo() {
+        console.log("Livros salvos:", JSON.stringify(livros));
+      }
+
+      function renderizarLivros(livrosParaRenderizar = livros) {
+        const livrosDiv = document.getElementById("livros");
+        livrosDiv.innerHTML = "";
+        livrosParaRenderizar.forEach((livro, index) => {
+          const livroDiv = document.createElement("div");
+          livroDiv.classList.add("livro");
+          const titulo = document.createElement("h3");
+          titulo.textContent = livro.titulo;
+          const autor = document.createElement("p");
+          autor.textContent = `Autor: ${livro.autor}`;
+          const genero = document.createElement("p");
+          genero.textContent = `Gênero: ${livro.genero}`;
+          const ano = document.createElement("p");
+          ano.textContent = `Ano: ${livro.ano}`;
+          const avaliacao = document.createElement("p");
+          avaliacao.textContent = `Avaliação: ${livro.avaliacao}`;
+          const inputAvaliacao = document.createElement("input");
+          inputAvaliacao.type = "number";
+          inputAvaliacao.min = 1;
+          inputAvaliacao.max = 5;
+          inputAvaliacao.placeholder = "Nova Avaliação";
+          inputAvaliacao.addEventListener("change", () =>
+            avaliarLivro(index, inputAvaliacao.value)
+          );
+
+          livroDiv.appendChild(titulo);
+          livroDiv.appendChild(autor);
+          livroDiv.appendChild(genero);
+          livroDiv.appendChild(ano);
+          livroDiv.appendChild(avaliacao);
+          livroDiv.appendChild(inputAvaliacao);
+
+          livrosDiv.appendChild(livroDiv);
+        });
+      }
+
+      document
+        .getElementById("adicionarLivroForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const titulo = document.getElementById("titulo").value;
+          const autor = document.getElementById("autor").value;
+          const genero = document.getElementById("genero").value;
+          const ano = document.getElementById("ano").value;
+          const avaliacao = document.getElementById("avaliacao").value;
+          livros.push({ titulo, autor, genero, ano, avaliacao });
+          salvarNoArquivo();
+          renderizarLivros();
+          this.reset();
+        });
+
+      function buscarLivro() {
+        const busca = document.getElementById("busca").value.toLowerCase();
+        const livrosFiltrados = livros.filter(
+          (livro) =>
+            livro.titulo.toLowerCase().includes(busca) ||
+            livro.autor.toLowerCase().includes(busca) ||
+            livro.genero.toLowerCase().includes(busca)
+        );
+        renderizarLivros(livrosFiltrados);
+      }
+
+      function classificarLivros() {
+        const criterio = document.getElementById("criterioClassificacao").value;
+        livros.sort((a, b) => (a[criterio] > b[criterio] ? 1 : -1));
+        renderizarLivros();
+      }
+
+      function avaliarLivro(index, novaAvaliacao) {
+        livros[index].avaliacao = novaAvaliacao;
+        salvarNoArquivo();
+        renderizarLivros();
+      }
+
+      carregarDoArquivo();
+    </script>
+  </body>
+</html>
