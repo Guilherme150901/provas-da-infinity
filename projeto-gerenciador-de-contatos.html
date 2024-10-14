@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto</title>
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 8px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+label {
+    margin: 10px 0 5px;
+}
+
+input[type="text"],
+input[type="tel"],
+input[type="email"] {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="tel"]:focus,
+input[type="email"]:focus {
+    border-color: #4CAF50;
+}
+
+button[type="submit"] {
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+#contatos {
+    margin-top: 20px;
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 4px;
+    position: relative;
+}
+
+button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    margin-left: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+button:last-of-type {
+    background-color: #1c7510; 
+}
+
+button:last-of-type:hover {
+    background-color: #5b9c5f; 
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 15px;
+    }
+}
+
+#erro{
+    background-color: white;
+    color: red;
+    border-radius: 5px;
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Gerenciador de contatos</h1>
+        <form id="form">
+            <div id="erro"></div>
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" placeholder="Digite o seu nome" required>
+            <label for="telefone">Telefone:</label>
+            <input type="tel" id="telefone" placeholder="Digite o seu telefone" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" placeholder="Digite o seu email" required>
+            <button type="submit">Adicionar contato</button>
+        </form>
+
+        <div id="contatos">
+            <h2>Contatos Adicionados:</h2>
+            <ul id="listaContatos"></ul>
+        </div>
+    </div>
+
+    <script>
+        let form = document.getElementById("form");
+        let listaContatos = document.getElementById("listaContatos");
+        let contatos = [];
+        let contatoEditar = null;
+
+        form.addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const nome = document.getElementById("nome").value;
+    const telefone = document.getElementById("telefone").value;
+    const email = document.getElementById("email").value;
+
+    try {
+        if (nome.length <=2) {
+            throw new Error(`O nome deve ter pelo menos 2 letras!`);
+        }
+
+        if (telefone.length = 11) {
+            throw "O telefone deve ter exatamente 11 números!";
+        }
+
+        if (!email.includes("@") || !email.includes(".com")) {
+            throw new Error("O e-mail deve conter '@' e terminar com '.com'.");
+        }
+
+        contatos.push({ nome, telefone, email });
+        atualizarListaContatos();
+        this.reset();
+    } catch (error) {
+        let erro = document.getElementById("erro"). innerHTML = error
+    }
+});
+
+        function atualizarListaContatos() {
+            listaContatos.innerHTML = '';
+
+            contatos.forEach((contato, index) => {
+                const li = document.createElement("li");
+                const strong = document.createElement("strong");
+                strong.innerHTML = `Nome: ${contato.nome}`;
+                const p1 = document.createElement("p");
+                p1.innerHTML = `Tel: ${contato.telefone}`;
+                const p2 = document.createElement("p");
+                p2.innerHTML = `Email: ${contato.email}`;
+
+                const criarBotaoEditar = document.createElement("button");
+                criarBotaoEditar.textContent = "Editar";
+                criarBotaoEditar.addEventListener('click', () => editarContato(index));
+
+                const criarBotaoExcluir = document.createElement("button");
+                criarBotaoExcluir.textContent = "Excluir";
+                criarBotaoExcluir.addEventListener('click', () => excluirContato(index));
+
+                li.appendChild(strong);
+                li.appendChild(p1);
+                li.appendChild(p2);
+                li.appendChild(criarBotaoEditar);
+                li.appendChild(criarBotaoExcluir);
+                listaContatos.appendChild(li);
+            });
+        }
+
+        function editarContato(index) {
+            const div = document.getElementById("contatos").innerHTML = "";
+            const contato = contatos[index];
+            document.getElementById("nome").value = contato.nome;
+            document.getElementById("telefone").value = contato.telefone;
+            document.getElementById("email").value = contato.email;
+            contatoEditar = index; 
+        }
+
+        function excluirContato(index) {
+            contatos.splice(index, 1);
+            atualizarListaContatos();
+        }
+    </script>
+</body>
+</html>
