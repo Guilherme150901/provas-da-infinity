@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simulador de Caixa Eletrônico</title>
+    <style>
+      body {
+        font-family: "Roboto", sans-serif;
+        background-color: #f7f9fc;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-image: linear-gradient(120deg, #a1c4fd, #c2e9fb);
+      }
+      .container {
+        background-color: #ffffff;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        padding: 30px;
+        width: 300px;
+        text-align: center;
+      }
+      .container h1 {
+        font-size: 26px;
+        color: #333;
+        margin-bottom: 20px;
+      }
+      .container select,
+      .container input {
+        width: calc(100% - 20px);
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) inset;
+      }
+      .container button {
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      .container button:hover {
+        background-color: #45a049;
+      }
+      #resultado {
+        margin-top: 20px;
+        font-size: 18px;
+        color: #555;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Simulador de Caixa Eletrônico</h1>
+      <select id="selecionar">
+        <option value="consultar">Consultar saldo</option>
+        <option value="depositar">Depositar</option>
+        <option value="sacar">Sacar</option>
+      </select>
+      <input type="number" id="numero" placeholder="Insira o valor" />
+      <button onclick="operacao()">Realizar</button>
+      <p id="resultado"></p>
+    </div>
+    <script>
+      let valorInicial = 1000;
+      function operacao() {
+        const selecionar = document.getElementById("selecionar").value;
+        const inputNumero = parseFloat(document.getElementById("numero").value);
+        const resultado = document.getElementById("resultado");
+        try {
+          if (isNaN(inputNumero) && selecionar !== "consultar") {
+            resultado.textContent = "Por favor, insira um valor válido!";
+            return;
+          }
+          switch (selecionar) {
+            case "consultar":
+              resultado.textContent = `O seu saldo é de R$ ${valorInicial.toFixed(
+                2
+              )}`;
+              break;
+            case "depositar":
+              valorInicial += inputNumero;
+              resultado.textContent = `Você depositou R$ ${inputNumero.toFixed(
+                2
+              )}. Saldo atual: R$ ${valorInicial.toFixed(2)}`;
+              break;
+            case "sacar":
+              if (inputNumero > valorInicial) {
+                resultado.textContent = "Saldo insuficiente!";
+              } else {
+                valorInicial -= inputNumero;
+                resultado.textContent = `Você sacou R$ ${inputNumero.toFixed(
+                  2
+                )}. Saldo atual: R$ ${valorInicial.toFixed(2)}`;
+              }
+              break;
+            default:
+              throw new Error("Operação inválida!");
+          }
+        } catch (error) {
+          resultado.textContent = error.message;
+        }
+      }
+    </script>
+  </body>
+</html>
