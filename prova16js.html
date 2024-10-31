@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Galeria de Raças de Cachorros</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      header {
+        background-color: #346cac;
+        color: white;
+        padding: 20px;
+        width: 100%;
+        text-align: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+      .input-container {
+        margin: 20px;
+        display: flex;
+        align-items: center;
+      }
+      .input-container label {
+        margin-right: 10px;
+        font-weight: bold;
+      }
+      .input-container select {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 200px;
+        margin-right: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .input-container button {
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        background-color: #346cac;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      .input-container button:hover {
+        background-color: #1523f3;
+      }
+      .image-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 20px;
+      }
+      #carregando {
+        display: none;
+        color:#051975;
+        margin-top: 10px;
+        font-size: 30px;
+      }
+      #aviso {
+        margin-top: 10px;
+      }
+      .image-container img {
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+      @media (max-width: 600px) {
+        .input-container select {
+          width: 100%;
+        }
+        .image-container img {
+          width: 100%;
+          height: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Galeria de Raças de Cachorros</h1>
+    </header>
+    <main>
+      <div class="input-container">
+        <label for="racas">Raças:</label>
+        <select id="racas" name="racas">
+          <option value="" disabled selected>Selecione uma raça</option>
+        </select>
+        <button id="buscar">Buscar</button>
+        <div id="carregando">carregando...</div>
+      </div>
+      <div id="imagens-cachorro" class="image-container"></div>
+    </main>
+    <script>
+      document.addEventListener("DOMContentLoaded", async () => {
+        const racasSelect = document.querySelector("#racas");
+        const buscarButton = document.querySelector("#buscar");
+        const imagemCachorro = document.querySelector("#imagens-cachorro");
+        const carregando = document.querySelector("#carregando");
+
+        try {
+          const response = await fetch("https://dog.ceo/api/breeds/list/all");
+          const dados = await response.json();
+          const racas = Object.keys(dados.message);
+
+          racas.forEach((raca) => {
+            const option = document.createElement("option");
+            option.value = raca;
+            option.textContent = raca.charAt(0).toUpperCase() + raca.slice(1);
+            racasSelect.appendChild(option);
+          });
+        } catch (error) {
+          console.error("Erro ao buscar lista de raças:", error);
+          alert("Erro ao carregar a lista de raças. Tente novamente mais tarde!");
+        }
+
+        buscarButton.addEventListener("click", async () => {
+          const racaSelecionada = racasSelect.value;
+
+          const avisoExistente = document.querySelector("#aviso");
+          if (avisoExistente) {
+            avisoExistente.remove();
+          }
+          if (!racaSelecionada) {
+            const tagP = document.createElement("p");
+            tagP.id = "aviso";
+            tagP.textContent = "Por favor, selecione uma raça.";
+            tagP.style.color = "red";
+            buscarButton.parentElement.appendChild(tagP);
+            return;
+          }
+          
+          carregando.style.display = "block";
+          try {
+            const response = await fetch(
+              `https://dog.ceo/api/breed/${racaSelecionada}/images/random/4`
+            );
+            const dados = await response.json();
+            exibirImagens(dados.message);
+          } catch (error) {
+            console.error("Erro ao buscar imagens:", error);
+            alert("Erro ao carregar as imagens. Tente novamente mais tarde!");
+          } finally {
+            carregando.style.display = "none"
+          }
+        });
+
+        function exibirImagens(imagens) {
+          imagemCachorro.innerHTML = "";
+          imagens.forEach((imagemUrl) => {
+            const img = document.createElement("img");
+            img.src = imagemUrl;
+            imagemCachorro.appendChild(img);
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
