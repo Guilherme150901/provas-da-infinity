@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Plataforma de Streaming</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Arial", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #141414;
+        color: white;
+      }
+
+      header {
+        background-color: #141414;
+        padding: 20px;
+        text-align: center;
+        font-size: 36px;
+        font-weight: bold;
+      }
+
+      header h1 {
+        color: white;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+
+      .container {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+        padding: 20px;
+      }
+
+      #input {
+        padding: 12px;
+        width: 350px;
+        border: none;
+        border-radius: 25px;
+        font-size: 16px;
+        outline: none;
+        background-color: #333;
+        color: white;
+      }
+
+      #botaoBuscar {
+        padding: 12px 20px;
+        background-color: #e50914;
+        color: white;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-left: 10px;
+      }
+
+      #botaoBuscar:hover {
+        background-color: #f40612;
+      }
+
+      .catalogo {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 30px;
+      }
+
+      .filme {
+        width: 220px;
+        margin: 15px;
+        cursor: pointer;
+        border-radius: 10px;
+        overflow: hidden;
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s;
+      }
+
+      .filme:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
+      }
+
+      .filme img {
+        width: 100%;
+        border-radius: 10px;
+        transition: transform 0.3s ease-in-out;
+      }
+
+      .filme img:hover {
+        transform: scale(1.1);
+      }
+
+      .detalhes {
+        display: none;
+        padding: 30px;
+        background-color: #333;
+        border-radius: 8px;
+        width: 80%;
+        margin: 30px auto;
+        max-width: 900px;
+        transition: all 0.3s ease;
+      }
+
+      .detalhes h2 {
+        margin-top: 0;
+        font-size: 28px;
+      }
+
+      .detalhes p {
+        font-size: 18px;
+        line-height: 1.6;
+      }
+
+      .detalhes img {
+        width: 100%;
+        border-radius: 10px;
+        margin-top: 20px;
+        max-height: 400px;
+        object-fit: cover;
+      }
+
+      .fecharDetalhes {
+        background-color: #e50914;
+        color: white;
+        padding: 12px 25px;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-top: 20px;
+      }
+
+      .fecharDetalhes:hover {
+        background-color: #f40612;
+      }
+
+      .footer {
+        background-color: #141414;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        margin-top: 50px;
+        font-size: 14px;
+      }
+
+      .footer a {
+        color: #e50914;
+        text-decoration: none;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Plataforma de Streaming</h1>
+    </header>
+    <div class="container">
+      <input type="text" id="input" placeholder="Buscar filmes ou séries..." />
+      <button id="botaoBuscar">Buscar</button>
+    </div>
+    <div id="resultado" class="catalogo"></div>
+
+    <div id="detalhes" class="detalhes">
+      <button class="fecharDetalhes" onclick="fecharDetalhes()">Fechar</button>
+      <h2 id="detalhes-titulo"></h2>
+      <p id="detalhes-sinopse"></p>
+      <img id="detalhes-imagem" src="" alt="Imagem do filme" />
+    </div>
+
+    <footer class="footer">
+      <p>&copy; 2024 Plataforma de Streaming - Todos os direitos reservados.</p>
+      <p>
+        Desenvolvido por
+        <a href="https://github.com/Guilherme150901" target="_blank">Guilherme Andrade</a>
+      </p>
+    </footer>
+
+    <script>
+      const apiKey =
+        "7eccaf67060a76bfd8e35b65729c4b0a"; 
+
+      document.getElementById("botaoBuscar").addEventListener("click", () => {
+        const valor = document.getElementById("input").value;
+        if (valor) {
+          buscarFilme(valor);
+        }
+      });
+
+      async function buscarFilme(valor) {
+        const url = `https://api.themoviedb.org/3/search/multi?api_key=${apiKey}&query=${encodeURIComponent(
+          valor
+        )}&language=pt-BR`;
+        try {
+          const response = await fetch(url);
+          const data = await response.json();
+          if (data.results) {
+            exibirCatalogo(data.results);
+          }
+        } catch (error) {
+          console.error("Erro ao buscar filmes/séries", error);
+        }
+      }
+
+      function exibirCatalogo(filmes) {
+        const catalogo = document.getElementById("resultado");
+        catalogo.innerHTML = "";
+        filmes.forEach((filme) => {
+          if (filme.poster_path) {
+            const divFilme = document.createElement("div");
+            divFilme.classList.add("filme");
+            divFilme.onclick = () => exibirDetalhes(filme.id);
+
+            const img = document.createElement("img");
+            img.src = `https://image.tmdb.org/t/p/w500${filme.poster_path}`;
+            img.alt = filme.title || filme.name;
+
+            divFilme.appendChild(img);
+            catalogo.appendChild(divFilme);
+          }
+        });
+      }
+
+      async function exibirDetalhes(id) {
+        const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&language=pt-BR`;
+        try {
+          const response = await fetch(url);
+          const data = await response.json();
+          if (data) {
+            document.getElementById("detalhes-titulo").textContent = data.title;
+            document.getElementById("detalhes-sinopse").textContent =
+              data.overview;
+            document.getElementById(
+              "detalhes-imagem"
+            ).src = `https://image.tmdb.org/t/p/w500${data.poster_path}`;
+            document.getElementById("detalhes").style.display = "block";
+          }
+        } catch (error) {
+          console.error("Erro ao carregar detalhes", error);
+        }
+      }
+
+      function fecharDetalhes() {
+        document.getElementById("detalhes").style.display = "none";
+      }
+
+      async function carregarPopulares() {
+        const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=pt-BR&page=1`;
+        try {
+          const response = await fetch(url);
+          const data = await response.json();
+          if (data.results) {
+            exibirCatalogo(data.results);
+          }
+        } catch (error) {
+          console.error("Erro ao carregar filmes populares", error);
+        }
+      }
+      carregarPopulares();
+    </script>
+  </body>
+</html>
