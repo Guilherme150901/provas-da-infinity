@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsividade e Cores</title>
+    <style>
+      :root {
+        --cor-fundo: #f0f8ff;
+        --cor-primaria: #007bff;
+        --cor-secundaria: #6c757d;
+        --cor-texto: #333;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background-color: var(--cor-fundo);
+        color: var(--cor-texto);
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .container {
+        text-align: center;
+        padding: 2rem;
+        background-color: var(--cor-primaria);
+        color: white;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      @media (max-width: 768px) {
+        body {
+          font-size: 4vw;
+        }
+        .container {
+          width: 90%;
+          padding: 1rem;
+        }
+      }
+
+      @media (min-width: 769px) {
+        body {
+          font-size: 1rem;
+        }
+        .container {
+          width: 50%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Bem-vindo!</h1>
+      <p>
+        Este é um exemplo de como aplicar responsividade e cores usando CSS.
+      </p>
+    </div>
+  </body>
+</html>
