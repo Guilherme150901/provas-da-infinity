@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja Online</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        #app {
+            max-width: 1200px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        .produto {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            transition: box-shadow 0.3s;
+        }
+
+        .produto:hover {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .produto img {
+            max-width: 120px;
+            margin-right: 15px;
+        }
+
+        .detalhes-produto {
+            flex-grow: 1;
+        }
+
+        .produto button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .produto button:hover {
+            background-color: #218838;
+        }
+
+        .item-carrinho {
+            margin: 10px 0;
+            padding: 10px;
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #carrinho {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            background: #fff;
+            margin-top: 20px;
+        }
+
+        #finalizar {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: block;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        #finalizar:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-remover {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-remover:hover {
+            background-color: #c82333;
+        }
+
+        .btn-adicionar-todos {
+            background-color: #17a2b8;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        .btn-adicionar-todos:hover {
+            background-color: #138496;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>Catálogo de Produtos</h1>
+        <div id="lista-produtos"></div>
+        <button class="btn-adicionar-todos" onclick="adicionarTodosAoCarrinho()">Adicionar Todos ao Carrinho</button>
+
+        <h2>Carrinho de Compras</h2>
+        <div id="carrinho"></div>
+        <button id="finalizar" disabled>Finalizar Compra</button>
+    </div>
+
+    <script>
+        const listaProdutos = document.getElementById('lista-produtos');
+        const carrinho = {};
+        const carrinhoDiv = document.getElementById('carrinho');
+        let produtos = [];
+
+        async function buscarProdutos() {
+            const resposta = await fetch('https://fakestoreapi.com/products');
+            produtos = await resposta.json();
+            exibirProdutos(produtos);
+        }
+
+        function exibirProdutos(produtos) {
+            listaProdutos.innerHTML = ''; 
+
+            produtos.forEach(produto => {
+                const divProduto = document.createElement('div');
+                divProduto.className = 'produto';
+
+                const imagem = document.createElement('img');
+                imagem.src = produto.image;
+                imagem.alt = produto.title;
+
+                const detalhesProduto = document.createElement('div');
+                detalhesProduto.className = 'detalhes-produto';
+
+                const titulo = document.createElement('h3');
+                titulo.textContent = produto.title;
+
+                const descricao = document.createElement('p');
+                descricao.textContent = produto.description;
+
+                const preco = document.createElement('p');
+                preco.textContent = `Preço: R$ ${produto.price.toFixed(2)}`;
+
+                const botaoAdicionar = document.createElement('button');
+                botaoAdicionar.textContent = 'Adicionar ao Carrinho';
+                botaoAdicionar.onclick = () => adicionarAoCarrinho(produto.id, produto.title, produto.price);
+
+                detalhesProduto.appendChild(titulo);
+                detalhesProduto.appendChild(descricao);
+                detalhesProduto.appendChild(preco);
+                detalhesProduto.appendChild(botaoAdicionar);
+
+                divProduto.appendChild(imagem);
+                divProduto.appendChild(detalhesProduto);
+
+                listaProdutos.appendChild(divProduto);
+            });
+        }
+
+        function adicionarAoCarrinho(idProduto, tituloProduto, precoProduto) {
+            if (!carrinho[idProduto]) {
+                carrinho[idProduto] = { titulo: tituloProduto, preco: precoProduto, quantidade: 0 };
+            }
+            carrinho[idProduto].quantidade++;
+            atualizarExibicaoCarrinho();
+        }
+
+        function adicionarTodosAoCarrinho() {
+            produtos.forEach(produto => {
+                if (!carrinho[produto.id]) {
+                    carrinho[produto.id] = { titulo: produto.title, preco: produto.price, quantidade: 0 };
+                }
+                carrinho[produto.id].quantidade++;
+            });
+            atualizarExibicaoCarrinho();
+        }
+
+        function removerDoCarrinho(idProduto) {
+            if (carrinho[idProduto]) {
+                delete carrinho[idProduto];
+                atualizarExibicaoCarrinho();
+            }
+        }
+
+        function atualizarExibicaoCarrinho() {
+            carrinhoDiv.innerHTML = ''; 
+            let total = 0;
+            let totalItens = 0;
+
+            for (const idProduto in carrinho) {
+                const item = carrinho[idProduto];
+
+                const itemCarrinhoDiv = document.createElement('div');
+                itemCarrinhoDiv.className = 'item-carrinho';
+
+                const textoItem = document.createElement('span');
+                textoItem.textContent = `${item.titulo} - Quantidade: ${item.quantidade} - Preço: R$ ${(item.preco * item.quantidade).toFixed(2)}`;
+
+                const botaoRemover = document.createElement('button');
+                botaoRemover.className = 'btn-remover';
+                botaoRemover.textContent = 'Remover';
+                botaoRemover.onclick = () => removerDoCarrinho(idProduto);
+
+                itemCarrinhoDiv.appendChild(textoItem);
+                itemCarrinhoDiv.appendChild(botaoRemover);
+
+                carrinhoDiv.appendChild(itemCarrinhoDiv);
+
+                total += item.preco * item.quantidade;
+                totalItens += item.quantidade;
+            }
+
+            const totalDiv = document.createElement('div');
+            totalDiv.innerText = `Total de Itens: ${totalItens} | Total: R$ ${total.toFixed(2)}`;
+
+            carrinhoDiv.appendChild(totalDiv);
+            verificarFinalizarCompra();
+        }
+
+        function verificarFinalizarCompra() {
+            const botaoFinalizar = document.getElementById('finalizar');
+            if (Object.keys(carrinho).length === 0) {
+                botaoFinalizar.disabled = true;
+                botaoFinalizar.style.backgroundColor = '#ccc';
+            } else {
+                botaoFinalizar.disabled = false;
+                botaoFinalizar.style.backgroundColor = '#007bff';
+            }
+        }
+
+        async function finalizarCompra() {
+            const produtosParaFinalizar = Object.keys(carrinho).map(idProduto => ({
+                productId: Number(idProduto),
+                quantity: carrinho[idProduto].quantidade
+            }));
+
+            await fetch('https://fakestoreapi.com/carts', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    userId: 5,
+                    date: new Date().toISOString(),
+                    products: produtosParaFinalizar
+                })
+            })
+            .then(res => res.json())
+            .then(json => {
+                console.log(json);
+                alert('Compra finalizada com sucesso!');
+                enviarNotificacao(); 
+                Object.keys(carrinho).forEach(key => delete carrinho[key]);
+                atualizarExibicaoCarrinho();
+            });
+        }
+
+        function enviarNotificacao() {
+            fetch('https://api.aftership.com/v4/notifications', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer YOUR_API_KEY',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "title": "Compra Finalizada",
+                    "message": "Sua compra foi realizada com sucesso!",
+                    "link": "https://example.com/compra"
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Notificação enviada:', data);
+            })
+            .catch(error => {
+                console.error('Erro ao enviar notificação:', error);
+            });
+        }
+
+        document.getElementById('finalizar').addEventListener('click', finalizarCompra);
+
+        buscarProdutos();
+    </script>
+</body>
+</html>
