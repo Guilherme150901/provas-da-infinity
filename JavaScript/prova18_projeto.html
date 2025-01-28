@@ -23,6 +23,35 @@
 
         h1, h2 {
             color: #333;
+            text-align: center;
+        }
+
+        .form-container {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-container input {
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: calc(100% - 22px);
+            max-width: 300px;
+        }
+
+        .form-container button {
+            padding: 10px 15px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .form-container button:hover {
+            background-color: #0056b3;
         }
 
         .produto {
@@ -98,7 +127,7 @@
             background-color: #0056b3;
         }
 
-        .btn-remover {
+        .botao-remover {
             background-color: #dc3545;
             color: white;
             border: none;
@@ -108,11 +137,11 @@
             transition: background-color 0.3s;
         }
 
-        .btn-remover:hover {
+        .botao-remover:hover {
             background-color: #c82333;
         }
 
-        .btn-adicionar-todos {
+        .botao-adicionar-todos {
             background-color: #17a2b8;
             color: white;
             border: none;
@@ -123,16 +152,31 @@
             margin-top: 20px;
         }
 
-        .btn-adicionar-todos:hover {
+        .botao-adicionar-todos:hover {
             background-color: #138496;
         }
     </style>
 </head>
 <body>
     <div id="app">
+        <div id="login-section" class="form-container">
+            <h1>Bem-vindo à Loja</h1>
+            <input type="text" id="username" placeholder="Usuário">
+            <input type="password" id="password" placeholder="Senha">
+            <button onclick="login()">Entrar</button>
+        </div>
+
+        <div id="admin-section" class="form-container" style="display: none;">
+            <h2>Cadastro de Produtos</h2>
+            <input type="text" id="novo-produto-nome" placeholder="Nome do Produto">
+            <input type="number" id="novo-produto-preco" placeholder="Preço">
+            <input type="text" id="novo-produto-descricao" placeholder="Descrição">
+            <button onclick="adicionarProduto()">Cadastrar Produto</button>
+        </div>
+
         <h1>Catálogo de Produtos</h1>
         <div id="lista-produtos"></div>
-        <button class="btn-adicionar-todos" onclick="adicionarTodosAoCarrinho()">Adicionar Todos ao Carrinho</button>
+        <button class="botao-adicionar-todos" onclick="adicionarTodosAoCarrinho()">Adicionar Todos ao Carrinho</button>
 
         <h2>Carrinho de Compras</h2>
         <div id="carrinho"></div>
@@ -143,7 +187,37 @@
         const listaProdutos = document.getElementById('lista-produtos');
         const carrinho = {};
         const carrinhoDiv = document.getElementById('carrinho');
+        const adminSection = document.getElementById('admin-section');
+        const loginSection = document.getElementById('login-section');
         let produtos = [];
+        let isAdmin = false;
+
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (username === 'guilherme' && password === '150901') {
+                isAdmin = true;
+                adminSection.style.display = 'block';
+                loginSection.style.display = 'none';
+                buscarProdutos();
+            } else {
+                alert('Usuário ou senha inválidos!');
+            }
+        }
+
+        function adicionarProduto() {
+            const nome = document.getElementById('novo-produto-nome').value;
+            const preco = parseFloat(document.getElementById('novo-produto-preco').value);
+            const descricao = document.getElementById('novo-produto-descricao').value;
+
+            if (nome && !isNaN(preco) && descricao) {
+                produtos.push({ id: produtos.length + 1, title: nome, price: preco, description: descricao, image: 'https://via.placeholder.com/120' });
+                exibirProdutos(produtos);
+            } else {
+                alert('Preencha todos os campos corretamente!');
+            }
+        }
 
         async function buscarProdutos() {
             const resposta = await fetch('https://fakestoreapi.com/products');
@@ -230,7 +304,7 @@
                 textoItem.textContent = `${item.titulo} - Quantidade: ${item.quantidade} - Preço: R$ ${(item.preco * item.quantidade).toFixed(2)}`;
 
                 const botaoRemover = document.createElement('button');
-                botaoRemover.className = 'btn-remover';
+                botaoRemover.className = 'botao-remover';
                 botaoRemover.textContent = 'Remover';
                 botaoRemover.onclick = () => removerDoCarrinho(idProduto);
 
