@@ -5,10 +5,18 @@ def enviarContato(e):
     email = email_input.value
     mensagem = mensagem_input.value
 
-    mensagem_salva = f"Formulário enviado com sucesso!\nNome: {nome}\n Email: {email}\n Mensagem: {mensagem}"
+    if not nome or not email or not mensagem:
+        erro_msg = "Todos os campos são obrigatórios!"
+        pagina.controls.append(ft.Text(value=erro_msg, color=ft.Colors.RED))
+        pagina.update()
+        return
 
+    confirmacao = "Formulário enviado com sucesso!"
+    mensagem_salva = f"Nome: {nome}\n Email: {email}\n Mensagem: {mensagem}"
+
+    pagina.controls.append(ft.Text(value = confirmacao, color=ft.Colors.GREEN))
     pagina.controls.append(ft.Text(value = mensagem_salva))
-
+    
     nome_input.value = ""
     email_input.value = ""
     mensagem_input.value = ""
