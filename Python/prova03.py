@@ -17,4 +17,3 @@ for i in range(5):
     
 print(f"Os produtos foram armazenados: {produtos}")
 print(f"Soma de todos os produtos: R${soma:.2f}")
-    
