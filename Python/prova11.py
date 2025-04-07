@@ -7,15 +7,15 @@
 
 class Animal: 
     def falar(self):
-        print("Este animal faz um som!")
+        return "Este animal faz um som!"
             
 class Cachorro(Animal):
     def falar(self):
-        print("O cachorro late!")
+        return "O cachorro late!"
         
 class Gato(Animal):
     def falar(self):
-        print("O gato mia!")
+        return "O gato mia!"
 
 def escolherAnimal():
     escolha = input("Digite gato ou cachorro:").lower()
@@ -26,6 +26,6 @@ def escolherAnimal():
     else:
         print("Digite o nome correto!")
         return    
-    animal.falar()
+    print(animal.falar())
     
 escolherAnimal()
