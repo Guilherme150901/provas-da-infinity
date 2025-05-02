@@ -1,47 +1,219 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário</title>
-</head>
-<body>
-    <h1>prova da segunda aula de HTML</h1> 
-    <h2>Formulário:</h2>
- <form class="my_form">
-        <label for="">Digite o seu Email:</label>
-        <input type="email" name="email" id=""><br>
-        <br>
-        <label for="">Digite a sua senha:</label>
-        <input type="password" name="senha" id=""><br>
-        <br>
-        <p>O que você faz no dia a dia ?</p>
-        <input type="checkbox" name="" id="">
-        <label for="">Atividade física</label>
-        <br>
-        <input type="checkbox" name="" id="">
-        <label for="">Trabalho</label>
-        <br>
-        <input type="checkbox" name="" id="">
-        <label for="">Estudos</label>
-        <br>
-        <input type="checkbox" name="" id="">
-        <label for="">Alimentação saudável</label>
-        <br>
-        <input type="checkbox" name="" id="">
-        <label for="">Outras coisas</label><br>
-        <br>
-        <label for="">se marcou a opção Outras coisas digite o que faz:</label><br>
-        <input type="text" name="" id=""><br>
-        <br>
-        <p>Qual é o seu grau de satisfação do formulário ?</p>
-        <input type="radio" name="satisfação" id="1">
-        <label for="">Satisfeito</label><br>
-        <input type="radio" name="satisfação" id="2">
-        <label for="">Insatisfeito</label> <br>
-        <br>
-        <button type="submit">enviar</button>
-        <button type="reset">refazer</button>
-    </form>
-</body>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calendário</title>
+    <style>
+      table {
+        width: 300px;
+        border-collapse: collapse;
+        margin: 10px;
+        display: inline-block;
+      }
+      th,
+      td {
+        border: 1px solid black;
+        padding: 5px;
+        text-align: center;
+      }
+      .feriado {
+        background-color: #ffd700;
+      }
+      .agendamento {
+        background-color: #add8e6;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Calendário dos Próximos 3 Meses</h2>
+
+    <table>
+      <caption>
+        Maio 2025
+      </caption>
+      <tr>
+        <th>Dom</th>
+        <th>Seg</th>
+        <th>Ter</th>
+        <th>Qua</th>
+        <th>Qui</th>
+        <th>Sex</th>
+        <th>Sáb</th>
+      </tr>
+      <tr>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td class="feriado">1</td>
+        <td>2</td>
+        <td>3</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>5</td>
+        <td class="agendamento">6</td>
+        <td>7</td>
+        <td>8</td>
+        <td class="agendamento">9</td>
+        <td>10</td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td class="agendamento">12</td>
+        <td>13</td>
+        <td>14</td>
+        <td class="agendamento">15</td>
+        <td>16</td>
+        <td>17</td>
+      </tr>
+      <tr>
+        <td>18</td>
+        <td>19</td>
+        <td>20</td>
+        <td class="agendamento">21</td>
+        <td>22</td>
+        <td>23</td>
+        <td class="agendamento">24</td>
+      </tr>
+      <tr>
+        <td>25</td>
+        <td>26</td>
+        <td class="agendamento">27</td>
+        <td>28</td>
+        <td class="agendamento">29</td>
+        <td>30</td>
+        <td>31</td>
+      </tr>
+    </table>
+
+    <table>
+      <caption>
+        Junho 2025
+      </caption>
+      <tr>
+        <th>Dom</th>
+        <th>Seg</th>
+        <th>Ter</th>
+        <th>Qua</th>
+        <th>Qui</th>
+        <th>Sex</th>
+        <th>Sáb</th>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>2</td>
+        <td class="agendamento">3</td>
+        <td>4</td>
+        <td>5</td>
+        <td class="agendamento">6</td>
+        <td>7</td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td class="agendamento">9</td>
+        <td>10</td>
+        <td>11</td>
+        <td>12</td>
+        <td>13</td>
+        <td>14</td>
+      </tr>
+      <tr>
+        <td>15</td>
+        <td>16</td>
+        <td>17</td>
+        <td class="agendamento">18</td>
+        <td class="feriado">19</td>
+        <td>20</td>
+        <td>21</td>
+      </tr>
+      <tr>
+        <td>22</td>
+        <td>23</td>
+        <td class="feriado">24</td>
+        <td>25</td>
+        <td class="agendamento">26</td>
+        <td>27</td>
+        <td>28</td>
+      </tr>
+      <tr>
+        <td>29</td>
+        <td>30</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+    </table>
+
+    <table>
+      <caption>
+        Julho 2025
+      </caption>
+      <tr>
+        <th>Dom</th>
+        <th>Seg</th>
+        <th>Ter</th>
+        <th>Qua</th>
+        <th>Qui</th>
+        <th>Sex</th>
+        <th>Sáb</th>
+      </tr>
+      <tr>
+        <td>-</td>
+        <td>-</td>
+        <td>1</td>
+        <td class="feriado">2</td>
+        <td class="agendamento">3</td>
+        <td>4</td>
+        <td>5</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>7</td>
+        <td class="agendamento">8</td>
+        <td>9</td>
+        <td>10</td>
+        <td class="agendamento">11</td>
+        <td>12</td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td class="agendamento">14</td>
+        <td>15</td>
+        <td class="agendamento">16</td>
+        <td>17</td>
+        <td>18</td>
+        <td class="agendamento">19</td>
+      </tr>
+      <tr>
+        <td>20</td>
+        <td>21</td>
+        <td class="agendamento">22</td>
+        <td>23</td>
+        <td class="agendamento">24</td>
+        <td>25</td>
+        <td>26</td>
+      </tr>
+      <tr>
+        <td>27</td>
+        <td>28</td>
+        <td>29</td>
+        <td>30</td>
+        <td>31</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+    </table>
+
+    <div>
+        <h3>Legendas</h3>
+        <ul>
+            <li><span style="background-color: #FFD700; padding: 2px;">Feriado</span> - Dia de descanso oficial.</li>
+            <li><span style="background-color: #ADD8E6; padding: 2px;">Agendamento</span> - Estudos, atividades pessoais e compromissos.</li>
+        </ul>
+    </div>
+  </body>
 </html>
